@@ -1,9 +1,13 @@
 import "@/styles/globals.css"
 import { Metadata } from "next"
+import AuthWrapper from "@/wrappers/auth-wrapper"
+import LayoutHandler from "@/wrappers/layout-handler"
+import { RecoilRoot } from "recoil"
 
 import { siteConfig } from "@/config/site"
 import { fontSans } from "@/lib/fonts"
 import { cn } from "@/lib/utils"
+import { Toaster } from "@/components/ui/toaster"
 import { SiteHeader } from "@/components/site-header"
 import { TailwindIndicator } from "@/components/tailwind-indicator"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -40,13 +44,17 @@ export default function RootLayout({ children }: RootLayoutProps) {
             fontSans.variable
           )}
         >
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col">
-              <SiteHeader />
-              <div className="flex-1">{children}</div>
-            </div>
-            <TailwindIndicator />
-          </ThemeProvider>
+          <LayoutHandler>
+            <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+              <div className="relative flex min-h-screen flex-col">
+                <SiteHeader />
+                <div className="flex-1">
+                  <AuthWrapper>{children}</AuthWrapper>
+                </div>
+                <Toaster />
+              </div>
+            </ThemeProvider>
+          </LayoutHandler>
         </body>
       </html>
     </>
