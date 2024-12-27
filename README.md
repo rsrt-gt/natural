@@ -1,4 +1,4 @@
-#Natural (Stupid Name)
+# Natural (Stupid Name)
 
 Things I want to achieve
 
